@@ -31,3 +31,11 @@ jobs:
       with:
         github-token: ${{ secrets.github_token }}
 
+    - name: Login to Docker Hub
+      run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: tag image
+      run: docker tag calc hakakalmog/tag:${{steps.bump.outputs.version}}
+
+    - name: Publish Docker image
+      run: docker push hakakalmog/tag:${{steps.bump.outputs.version}}
