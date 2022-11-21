@@ -23,7 +23,7 @@ jobs:
     - uses: actions/checkout@v3
 
     - name: Build docker
-      run: docker build -t calc .
+      run: docker build -t hakakalmog/calc .
 
     - name: Bump Version
       id: bump
@@ -35,7 +35,7 @@ jobs:
       run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
     - name: tag image
-      run: docker tag calc hakakalmog/tag:${{steps.bump.outputs.version}}
+      run: docker tag hakakalmog/calc hakakalmog/calc:${{steps.bump.outputs.version}}
 
     - name: Publish Docker image
-      run: docker push hakakalmog/tag:${{steps.bump.outputs.version}}
+      run: docker push hakakalmog/calc:${{steps.bump.outputs.version}}
